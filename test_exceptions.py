@@ -1,38 +1,40 @@
 import pytest
 from Exceptions import ExceptionsDemo, MyException  
 
-def test_division_cero():
+def test_division_zero():
     demo = ExceptionsDemo()
-    with pytest.raises(ZeroDivisionError):   
-        demo.divide(10,0)
+    with pytest.raises(ZeroDivisionError):
+        demo.divide(10, 0)
 
-
-def test_division_with_string():
+def test_division_with_str():
     demo = ExceptionsDemo()
-    with pytest.raises((TypeError, ZeroDivisionError)):   
-        demo.divide('8',0)
+    with pytest.raises((TypeError,ZeroDivisionError)):
+        demo.divide("10", 0)
 
-def test_access_list_out_of_bounds():
+def test_access_list():
     demo = ExceptionsDemo()
     with pytest.raises(IndexError):
         demo.access_list([1,2,3], 7)
 
-def test_access_list_dic():
+def test_access_dict():
     demo = ExceptionsDemo()
     with pytest.raises(KeyError):
-        demo.access_dict({"color": "rojo","from": "round"},"sabor")
+        demo.access_dict({"a": 1, "b": 2}, "c")
 
 def test_read_file():
     demo = ExceptionsDemo()
     with pytest.raises(FileNotFoundError):
         demo.read_file("sabor.txt")
 
-def test_atribute():
+def test_access_attribute():
     demo = ExceptionsDemo()
+    class Dummy:
+        pass
+    dummy_obj = Dummy()
     with pytest.raises(AttributeError):
-        demo.access_attribute(object())
+        demo.access_attribute(dummy_obj)
 
 def test_check_positive():
     demo = ExceptionsDemo()
     with pytest.raises(MyException):
-        demo.check_positive(-3)
+        demo.check_positive(-5)

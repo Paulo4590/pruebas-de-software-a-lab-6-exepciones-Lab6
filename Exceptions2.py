@@ -8,32 +8,53 @@ class ExceptionsDemo:
             result = a / b
             print("Division result:", result)
         except ZeroDivisionError:
-            print("ZeroDivisionError Detected")
+            print("Error: Division by zero is not allowed.")
+        
         except TypeError:
-            print("TypeError Detected")
+            print("Error: Invalid data type for division. Please provide numbers.")
+
+
 
     def access_list(self, lst, index):
         try:
             print("Element:", lst[index])
         except IndexError:
-            print("IndexError Detected")
+            print("Error: Index is out of bounds.")
+        except TypeError:
+            print("Error: Invalid data type for list access. Please provide a list and an integer index.")
 
     def access_dict(self, dic, key):
-        print("Value:", dic[key])
-    
+        try:
+            print("Value:", dic[key])
+        except KeyError:
+            print("Error: Key is not found in the dictionary.")
+        except TypeError:
+            print("Error: Invalid data type for dictionary access. Please provide a dictionary and a valid key.")
+
     def read_file(self, filename):
-        with open(filename, "r") as f:
-            content = f.read()
-            print(content)
+        try:
+            with open(filename, "r") as f:
+                content = f.read()
+                print(content)
+        except FileNotFoundError:
+            print(f"Error: The file '{filename}' was not found.")
+        except Exception as e:
+            print(f"An error occurred while reading the file: {e}")
     
     def access_attribute(self, obj):
-        print(obj.tnonexistent_attribue)
+        try:
+            print(obj.nonexistent_attribute)
+        except AttributeError:
+            print("Error: The object does not have the specified attribute.")
     
     def check_positive(self, number):
-        if number < 0:
-            raise MyException("The number must be positive.")
-        else:
-            print("Valid number:", number)
+        try:
+            if number < 0:
+                raise MyException("The number must be positive.")
+            else:
+                print("Valid number:", number)
+        except MyException as e:
+            print("Custom error:", e)
 
 
 class MyException(Exception):
